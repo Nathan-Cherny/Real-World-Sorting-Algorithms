@@ -40,6 +40,26 @@ def meteoriteMass(): # used for parsing mass of fallen meteorites
     with open('meteorMasses.json', 'w') as f:
         json.dump(meteorMasses, f, indent=4)
 
+def dogNames():
+    dogNames = {}
+    f = open("NYC_Dog_Licensing_Dataset.csv", "r", encoding="utf8")
+    dogDataString = f.read()
+    dogs = dogDataString.split("\n")
+    for dog in dogs[1:]:
+        dogData = dog.split(",")
+        name = dogData[0]
+
+        if name not in ["UNKNOWN", ".", "NAME NOT PROVIDED", "UNKNOWED", "NA", "A", ""]: # if its not one of these names 
+
+            name = name.title()
+
+            if name in dogNames.keys(): # if we've counted this name before
+                dogNames[name] += 1
+            else: # first time
+                dogNames[name] = 1
 
 
-meteoriteMass()
+    with open('dogNames.json', 'w') as f:
+        json.dump(dogNames, f, indent=4)
+
+        
